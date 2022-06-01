@@ -1,9 +1,11 @@
+#list
 my $l1 = List.new: 1, 2, 3; # [1, 2, 3]
 my @l2 = (1, 2, 3); # [1, 2, 3]
 
 say $l1.elems; # 3
 say @l2.elems; # 3
 
+#arrays
 my @l3 = <Carlo Angela Peter Roberto>;
 say @l3.elems; # 4
 
@@ -34,3 +36,5 @@ my $str4 = "a b c d"; # a b c d
 my $l6 = $str4.words; # [a, b, c, d]
 put $l6; # a b c d
 put $l6.reverse;
+
+
