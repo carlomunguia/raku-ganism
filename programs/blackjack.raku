@@ -18,7 +18,7 @@ my @values = (
 
 my @suites = < spades clubs diamonds hearts >;
 
-my @deck = flat( @values X @suites ).map: { my ($name, $value) = $^a.kv; $name ~= " of $^b"; $name = $value};
+my @deck = flat( @values X @suites ).map: { my ($name, $value) = $^a.kv; $name ~= " of $^b"; $name => $value };
 
 my @cards = @deck.pick( @deck.elems );
 
@@ -37,7 +37,6 @@ say "PLAYER:";
 .key.say for @player;
 
 my $player_value = [+] @player.map: { .value };
-
 
 loop {
     my $card = @cards.shift;
@@ -85,4 +84,21 @@ say "DEALER:";
 
 my $dealer_value = [+] @dealer.map: { .value };
 
+loop {
+    say "dealer value: {$dealer_value.raku}";
 
+    if $dealer_value == any( $player_value ^.. 21) {
+        say "you loose!";
+        exit 0;
+    }
+    elsif $dealer_value < 21 {
+        my $card = @cards.shift;
+        @dealer.push( $card );
+        say $card.key;
+        $dealer_value += $card.value;
+    }
+    else {
+        say "dealer bust: you win!";
+        exit 0;
+    }
+}
